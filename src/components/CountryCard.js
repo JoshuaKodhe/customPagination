@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Flag from 'react-flags';
 
 const CountryCard = props => {
-	console.log(props);
 	const { cca2: code2 = '', region = null, name = {} } = props.country || {};
 
 	return (
