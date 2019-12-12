@@ -105,39 +105,39 @@ class Pagination extends Component {
 		return range(1, totalPages);
 	};
 
-  componentDidMount() {
-    this.gotoPage(1);
-  }
+	componentDidMount() {
+		this.gotoPage(1);
+	}
 
-  gotoPage = page => {
-    const { onPageChanged = f => f } = this.props;
+	gotoPage = page => {
+		const { onPageChanged = f => f } = this.props;
 
-    const currentPage = Math.max(0, Math.min(page, this.totalPages));
+		const currentPage = Math.max(0, Math.min(page, this.totalPages));
 
-    const paginationData = {
-      currentPage,
-      totalPages: this.totalPages,
-      pageLimit: this.pageLimit,
-      totalRecords: this.totalRecords
-    };
+		const paginationData = {
+			currentPage,
+			totalPages: this.totalPages,
+			pageLimit: this.pageLimit,
+			totalRecords: this.totalRecords,
+		};
 
-    this.setState({ currentPage }, () => onPageChanged(paginationData));
-  }
+		this.setState({ currentPage }, () => onPageChanged(paginationData));
+	};
 
-  handleClick = page => evt => {
-    evt.preventDefault();
-    this.gotoPage(page);
-  }
+	handleClick = page => evt => {
+		evt.preventDefault();
+		this.gotoPage(page);
+	};
 
-  handleMoveLeft = evt => {
-    evt.preventDefault();
-    this.gotoPage(this.state.currentPage - (this.pageNeighbours * 2) - 1);
-  }
+	handleMoveLeft = evt => {
+		evt.preventDefault();
+		this.gotoPage(this.state.currentPage - this.pageNeighbours * 2 - 1);
+	};
 
-  handleMoveRight = evt => {
-    evt.preventDefault();
-    this.gotoPage(this.state.currentPage + (this.pageNeighbours * 2) + 1);
-  }
+	handleMoveRight = evt => {
+		evt.preventDefault();
+		this.gotoPage(this.state.currentPage + this.pageNeighbours * 2 + 1);
+	};
 
 	render() {
 		if (!this.totalRecords || this.totalPages === 1) return null;
@@ -153,28 +153,27 @@ class Pagination extends Component {
 							if (page === LEFT_PAGE)
 								return (
 									<li key={index} className='page-item'>
-										<a
+										<button
 											className='page-link'
-											href='#'
 											aria-label='Previous'
 											onClick={this.handleMoveLeft}>
 											<span aria-hidden='true'>&laquo;</span>
 											<span className='sr-only'>Previous</span>
-										</a>
+										</button>
 									</li>
 								);
 
 							if (page === RIGHT_PAGE)
 								return (
 									<li key={index} className='page-item'>
-										<a
+										<button
 											className='page-link'
 											href='#'
 											aria-label='Next'
 											onClick={this.handleMoveRight}>
 											<span aria-hidden='true'>&raquo;</span>
 											<span className='sr-only'>Next</span>
-										</a>
+										</button>
 									</li>
 								);
 
@@ -184,12 +183,12 @@ class Pagination extends Component {
 									className={`page-item${
 										currentPage === page ? ' active' : ''
 									}`}>
-									<a
+									<button
 										className='page-link'
 										href='#'
 										onClick={this.handleClick(page)}>
 										{page}
-									</a>
+									</button>
 								</li>
 							);
 						})}
